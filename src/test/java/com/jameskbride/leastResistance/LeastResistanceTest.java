@@ -3,13 +3,10 @@ package com.jameskbride.leastResistance;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.jameskbride.leastResistance.PathFinder.PATH_FOUND;
-import static com.jameskbride.leastResistance.PathFinder.PATH_NOT_FOUND;
-import static com.jameskbride.leastResistance.PathFinder.RESISTANCE_THRESHHOLD;
+import static com.jameskbride.leastResistance.PathFinder.*;
 import static org.junit.Assert.assertEquals;
 
 public class LeastResistanceTest {
