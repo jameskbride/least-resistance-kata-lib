@@ -61,4 +61,15 @@ public class LeastResistanceTest {
 
         assertEquals(RESISTANCE_THRESHHOLD, actualTotalResistance);
     }
+
+    @Test
+    public void givenAPathThatIsTooResistantInTheFirstStepWhenThePathIsCalculatedThenItShouldReturnZero() {
+        int[][] map = new int[][] {
+                {RESISTANCE_THRESHHOLD + 1, 0, 0, 0, 0}
+        };
+
+        int actualTotalResistance = pathFinder.findPath(map).getTotalResistance();
+
+        assertEquals(0, actualTotalResistance);
+    }
 }
