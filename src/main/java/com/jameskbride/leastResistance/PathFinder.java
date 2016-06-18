@@ -12,17 +12,12 @@ public class PathFinder {
             pathResistance += map[0][columnIndex];
         }
 
-        if (pathResistance > RESISTANCE_THRESHHOLD) {
-            PathResult pathResult = new PathResult();
-            pathResult.setPathFound(PATH_NOT_FOUND);
-            pathResult.setTotalResistance(pathResistance);
-
-            return  pathResult;
-        }
-
         PathResult pathResult = new PathResult();
-        pathResult.setPathFound(PATH_FOUND);
         pathResult.setTotalResistance(pathResistance);
+
+        String pathFound = (pathResistance > RESISTANCE_THRESHHOLD) ? PATH_NOT_FOUND : PATH_FOUND;
+        pathResult.setPathFound(pathFound);
+
         return pathResult;
     }
 }
