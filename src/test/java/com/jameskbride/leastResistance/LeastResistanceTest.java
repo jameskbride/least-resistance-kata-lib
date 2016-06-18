@@ -19,7 +19,7 @@ public class LeastResistanceTest {
     }
 
     @Test
-    public void givenAMinimalValidPathWhenThePathIsCalculatedThenItShouldBeSuccessful() {
+    public void givenAMapWithAMinimalValidPathWhenThePathIsCalculatedThenItShouldBeSuccessful() {
         int[][] map = new int[][] {
             {0, 0, 0, 0, 0}
         };
@@ -30,7 +30,7 @@ public class LeastResistanceTest {
     }
 
     @Test
-    public void givenAMinimalInvalidPathWhenThePathIsCalculatedThenItShouldNotBeSuccessful() {
+    public void givenAMapWithAMinimalInvalidPathWhenThePathIsCalculatedThenItShouldNotBeSuccessful() {
         int[][] map = new int[][] {
                 {RESISTANCE_THRESHHOLD + 1, 0, 0, 0, 0}
         };
@@ -41,7 +41,7 @@ public class LeastResistanceTest {
     }
 
     @Test
-    public void givenAMinimalValidPathWhenThePathIsCalculatedThenItShouldReturnTheTotalResistance() {
+    public void givenAMapWithAMinimalValidPathWhenThePathIsCalculatedThenItShouldReturnTheTotalResistance() {
         int expectedTotalResistance = 1;
         int[][] map = new int[][] {
                 {expectedTotalResistance, 0, 0, 0, 0}
@@ -53,7 +53,7 @@ public class LeastResistanceTest {
     }
 
     @Test
-    public void givenAMinimalInvalidPathWhenThePathIsCalculatedThenItShouldReturnTheTotalResistance() {
+    public void givenAMapWithAMinimalInvalidPathWhenThePathIsCalculatedThenItShouldReturnTheTotalResistance() {
         int[][] map = new int[][] {
                 {RESISTANCE_THRESHHOLD, 1, 0, 0, 0}
         };
@@ -64,7 +64,7 @@ public class LeastResistanceTest {
     }
 
     @Test
-    public void givenAPathThatIsTooResistantInTheFirstStepWhenThePathIsCalculatedThenItShouldReturnZero() {
+    public void givenAMapThatIsTooResistantInTheFirstStepWhenThePathIsCalculatedThenItShouldReturnZero() {
         int[][] map = new int[][] {
                 {RESISTANCE_THRESHHOLD + 1, 0, 0, 0, 0}
         };
@@ -75,7 +75,7 @@ public class LeastResistanceTest {
     }
 
     @Test
-    public void givenAMinimalValidPathWhenThePathIsCalculatedThenItShouldReturnThePath() {
+    public void givenAMapWithAMinimalValidPathWhenThePathIsCalculatedThenItShouldReturnThePath() {
         int[][] map = new int[][] {
                 {0, 0, 0, 0, 0}
         };
