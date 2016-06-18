@@ -6,16 +6,23 @@ public class PathFinder {
     public static final String PATH_NOT_FOUND = "no";
     public static final String PATH_FOUND = "yes";
 
-    public String findPath(int[][] map) {
+    public PathResult findPath(int[][] map) {
         int pathResistance = 0;
         for (int columnIndex = 0; columnIndex < map[0].length; columnIndex++) {
             pathResistance += map[0][columnIndex];
         }
 
         if (pathResistance > RESISTANCE_THRESHHOLD) {
-            return PATH_NOT_FOUND;
+            PathResult pathResult = new PathResult();
+            pathResult.setPathFound(PATH_NOT_FOUND);
+            pathResult.setTotalResistance(pathResistance);
+
+            return  pathResult;
         }
 
-        return PATH_FOUND;
+        PathResult pathResult = new PathResult();
+        pathResult.setPathFound(PATH_FOUND);
+        pathResult.setTotalResistance(pathResistance);
+        return pathResult;
     }
 }

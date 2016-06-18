@@ -18,12 +18,12 @@ public class LeastResistanceTest {
     }
 
     @Test
-    public void givenAMinimalValidStraightPathWhenThePathIsCalculatedThenItShouldBeSuccessful() {
+    public void givenAMinimalValidPathWhenThePathIsCalculatedThenItShouldBeSuccessful() {
         int[][] map = new int[][] {
             {0, 0, 0, 0, 0}
         };
 
-        String result = pathFinder.findPath(map);
+        String result = pathFinder.findPath(map).getPathFound();
 
         assertEquals(PATH_FOUND, result);
     }
@@ -34,8 +34,20 @@ public class LeastResistanceTest {
                 {RESISTANCE_THRESHHOLD, 1, 0, 0, 0}
         };
 
-        String result = pathFinder.findPath(map);
+        String result = pathFinder.findPath(map).getPathFound();
 
         assertEquals(PATH_NOT_FOUND, result);
+    }
+
+    @Test
+    public void givenAMinimalValidPathWhenThePathIsCalculatedThenItShouldReturnTheTotalResistance() {
+        int expectedTotalResistance = 1;
+        int[][] map = new int[][] {
+                {expectedTotalResistance, 0, 0, 0, 0}
+        };
+
+        int actualTotalResistance = pathFinder.findPath(map).getTotalResistance();
+
+        assertEquals(expectedTotalResistance, actualTotalResistance);
     }
 }
