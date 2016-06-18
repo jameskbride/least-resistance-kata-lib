@@ -96,4 +96,16 @@ public class LeastResistanceTest {
 
         assertTrue(path.isEmpty());
     }
+
+    @Test
+    public void givenAMapWithAMinimalInvalidPathWhenThePathIsCalculatedThenThePathShouldContainTheValidLegs() {
+        int[][] map = new int[][] {
+                {RESISTANCE_THRESHHOLD, 1, 0, 0, 0}
+        };
+
+        List<Integer> path = pathFinder.findPath(map).getPath();
+
+        assertEquals(1, path.size());
+        assertEquals(Integer.valueOf(1), path.get(0));
+    }
 }
