@@ -50,4 +50,15 @@ public class LeastResistanceTest {
 
         assertEquals(expectedTotalResistance, actualTotalResistance);
     }
+
+    @Test
+    public void givenAMinimalInvalidPathWhenThePathIsCalculatedThenItShouldReturnTheTotalResistance() {
+        int[][] map = new int[][] {
+                {RESISTANCE_THRESHHOLD, 1, 0, 0, 0}
+        };
+
+        int actualTotalResistance = pathFinder.findPath(map).getTotalResistance();
+
+        assertEquals(RESISTANCE_THRESHHOLD, actualTotalResistance);
+    }
 }

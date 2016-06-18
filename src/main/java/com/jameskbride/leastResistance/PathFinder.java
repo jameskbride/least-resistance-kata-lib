@@ -8,15 +8,23 @@ public class PathFinder {
 
     public PathResult findPath(int[][] map) {
         int pathResistance = 0;
+        boolean pathFound = true;
         for (int columnIndex = 0; columnIndex < map[0].length; columnIndex++) {
-            pathResistance += map[0][columnIndex];
+            int existingPathResistance = pathResistance;
+            int newPathResistance = existingPathResistance + map[0][columnIndex];
+            if (newPathResistance > RESISTANCE_THRESHHOLD) {
+                pathFound = false;
+                break;
+            } else {
+                pathResistance = newPathResistance;
+            }
         }
 
         PathResult pathResult = new PathResult();
         pathResult.setTotalResistance(pathResistance);
 
-        String pathFound = (pathResistance > RESISTANCE_THRESHHOLD) ? PATH_NOT_FOUND : PATH_FOUND;
-        pathResult.setPathFound(pathFound);
+        String pathFoundString = (pathFound) ? PATH_FOUND: PATH_NOT_FOUND;
+        pathResult.setPathFound(pathFoundString);
 
         return pathResult;
     }
