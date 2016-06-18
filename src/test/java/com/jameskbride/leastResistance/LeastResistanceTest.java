@@ -31,7 +31,7 @@ public class LeastResistanceTest {
     @Test
     public void givenAMinimalInvalidPathWhenThePathIsCalculatedThenItShouldNotBeSuccessful() {
         int[][] map = new int[][] {
-                {RESISTANCE_THRESHHOLD, 1, 0, 0, 0}
+                {RESISTANCE_THRESHHOLD + 1, 0, 0, 0, 0}
         };
 
         String result = pathFinder.findPath(map).getPathFound();
