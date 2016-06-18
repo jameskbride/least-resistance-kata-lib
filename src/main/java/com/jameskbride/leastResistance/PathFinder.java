@@ -17,7 +17,7 @@ public class PathFinder {
             int newPathResistance = existingPathResistance + map[0][columnIndex];
             if (newPathResistance > RESISTANCE_THRESHHOLD) {
                 pathResult.setPathFound(PATH_NOT_FOUND);
-                
+
                 break;
             } else {
                 pathResistance = newPathResistance;

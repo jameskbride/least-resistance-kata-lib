@@ -8,6 +8,7 @@ import java.util.List;
 
 import static com.jameskbride.leastResistance.PathFinder.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class LeastResistanceTest {
 
@@ -83,5 +84,16 @@ public class LeastResistanceTest {
         List<Integer> path = pathFinder.findPath(map).getPath();
 
         assertEquals(Arrays.asList(1, 1, 1, 1, 1), path);
+    }
+
+    @Test
+    public void givenAMapThatIsTooResistantInTheFirstStepWhenThePathIsCalculatedThenPathContainsNoLegs() {
+        int[][] map = new int[][] {
+                {RESISTANCE_THRESHHOLD + 1, 0, 0, 0, 0}
+        };
+
+        List<Integer> path = pathFinder.findPath(map).getPath();
+
+        assertTrue(path.isEmpty());
     }
 }
