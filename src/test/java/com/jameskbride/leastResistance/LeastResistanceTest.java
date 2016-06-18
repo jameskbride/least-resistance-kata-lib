@@ -3,6 +3,10 @@ package com.jameskbride.leastResistance;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static com.jameskbride.leastResistance.PathFinder.PATH_FOUND;
 import static com.jameskbride.leastResistance.PathFinder.PATH_NOT_FOUND;
 import static com.jameskbride.leastResistance.PathFinder.RESISTANCE_THRESHHOLD;
@@ -71,5 +75,16 @@ public class LeastResistanceTest {
         int actualTotalResistance = pathFinder.findPath(map).getTotalResistance();
 
         assertEquals(0, actualTotalResistance);
+    }
+
+    @Test
+    public void givenAMinimalValidPathWhenThePathIsCalculatedThenItShouldReturnThePath() {
+        int[][] map = new int[][] {
+                {0, 0, 0, 0, 0}
+        };
+
+        List<Integer> path = pathFinder.findPath(map).getPath();
+
+        assertEquals(Arrays.asList(1, 1, 1, 1, 1), path);
     }
 }
