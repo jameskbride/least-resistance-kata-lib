@@ -19,9 +19,6 @@ public class PathFinder {
         }
 
         Collections.sort(pathResults, new PathResultComparator());
-        for(PathResult path : pathResults) {
-            System.out.println("Path: " + path.getPathFound() + " " + path.getTotalResistance() + " " + path.getPath());
-        }
 
         PathResult bestPath = pathResults.get(0);
 
@@ -47,12 +44,7 @@ public class PathFinder {
         int nextColumnIndex = startingCoords.x + 1;
         if (nextColumnIndex < map[0].length) {
             int centerRowIndex = startingCoords.y;
-
-            PathResult centerPathResult = new PathResult(pathResult.getPathFound(), pathResult.getTotalResistance(), new ArrayList<>(pathResult.getPath()));
-            centerPathResult = getPathResult(map, new Coord(nextColumnIndex, centerRowIndex), centerPathResult);
-            if (PATH_FOUND.equals(centerPathResult.getPathFound())) {
-                possiblePaths.add(centerPathResult);
-            }
+            getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, centerRowIndex);
 
             int topRowIndex = startingCoords.y - 1;
             getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, topRowIndex);
