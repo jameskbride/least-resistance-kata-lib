@@ -119,4 +119,16 @@ public class LeastResistanceTest {
         assertEquals(1, path.size());
         assertEquals(Integer.valueOf(1), path.get(0));
     }
+
+    @Test
+    public void givenAMapWithAComplexCompletePathWhenThePathIsCalculatedThenItShouldReturnThePath() {
+        int[][] map = new int[][] {
+                {50, 0, 0, 0, 0},
+                {0, 50, 50, 50, 50}
+        };
+
+        List<Integer> expectedPath = Arrays.asList(2, 1, 1, 1, 1);
+
+        assertEquals(expectedPath, pathFinder.findPath(map).getPath());
+    }
 }
