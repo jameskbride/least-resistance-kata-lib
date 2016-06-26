@@ -13,27 +13,27 @@ public class PathResultComparator implements Comparator<PathResult>{
         }
 
         if (path1 != null && path2 == null) {
-            return 1;
-        } else if (path1 == null && path2 != null){
             return -1;
+        } else if (path1 == null && path2 != null){
+            return 1;
         }
 
         if (PATH_FOUND.equals(path1.getPathFound()) && !PATH_FOUND.equals(path2.getPathFound())) {
-            return 1;
-        } else if (!PATH_FOUND.equals(path1.getPathFound()) && PATH_FOUND.equals(path2.getPathFound())) {
             return -1;
+        } else if (!PATH_FOUND.equals(path1.getPathFound()) && PATH_FOUND.equals(path2.getPathFound())) {
+            return 1;
         }
 
         if (path1.getTotalResistance() < path2.getTotalResistance()) {
-            return 1;
-        } else if (path1.getTotalResistance() > path2.getTotalResistance()) {
             return -1;
+        } else if (path1.getTotalResistance() > path2.getTotalResistance()) {
+            return 1;
         }
 
         if (path1.getPath().size() < path2.getPath().size()) {
-            return 1;
-        } else if (path1.getPath().size() > path2.getPath().size()) {
             return -1;
+        } else if (path1.getPath().size() > path2.getPath().size()) {
+            return 1;
         }
 
         return 0;

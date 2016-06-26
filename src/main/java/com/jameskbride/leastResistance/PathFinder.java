@@ -1,5 +1,9 @@
 package com.jameskbride.leastResistance;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class PathFinder {
 
     public static final int RESISTANCE_THRESHHOLD = 50;
@@ -7,48 +11,77 @@ public class PathFinder {
     public static final String PATH_FOUND = "yes";
 
     public PathResult findPath(int[][] map) {
+        List<PathResult> pathResults = new ArrayList<>();
+        for (int rowIndex = 0; rowIndex < map.length; rowIndex++) {
+            PathResult pathResult = new PathResult();
+            pathResult = getPathResult(map, new Coord(0, rowIndex), pathResult);
+            pathResults.add(pathResult);
+        }
 
-        Coord startingCoords = getStartingCoordinates(map);
+        Collections.sort(pathResults, new PathResultComparator());
+        for(PathResult path : pathResults) {
+            System.out.println("Path: " + path.getPathFound() + " " + path.getTotalResistance() + " " + path.getPath());
+        }
 
-        PathResult pathResult = new PathResult();
+        PathResult bestPath = pathResults.get(0);
 
-        return getPathResult(map, startingCoords, pathResult);
+        return bestPath;
     }
 
     private PathResult getPathResult(int[][] map, Coord startingCoords, PathResult pathResult) {
         int columnIndex = startingCoords.x;
 
         int existingPathResistance = pathResult.getTotalResistance();
-        int newPathResistance = existingPathResistance + map[0][columnIndex];
+        int newPathResistance = existingPathResistance + map[startingCoords.y][columnIndex];
         if (newPathResistance > RESISTANCE_THRESHHOLD) {
             pathResult.setPathFound(PATH_NOT_FOUND);
 
             return pathResult;
         }
 
+        List<PathResult> possiblePaths = new ArrayList<>();
         pathResult.setTotalResistance(newPathResistance);
         pathResult.setPathFound(PATH_FOUND);
         pathResult.addPathLeg(startingCoords.y + 1);
 
         int nextColumnIndex = startingCoords.x + 1;
         if (nextColumnIndex < map[0].length) {
-            return getPathResult(map, new Coord(startingCoords.x + 1, startingCoords.y), pathResult);
+            int centerRowIndex = startingCoords.y;
+
+            PathResult centerPathResult = new PathResult(pathResult.getPathFound(), pathResult.getTotalResistance(), new ArrayList<>(pathResult.getPath()));
+            centerPathResult = getPathResult(map, new Coord(nextColumnIndex, centerRowIndex), centerPathResult);
+            if (PATH_FOUND.equals(centerPathResult.getPathFound())) {
+                possiblePaths.add(centerPathResult);
+            }
+
+            int topRowIndex = startingCoords.y - 1;
+            getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, topRowIndex);
+
+            int bottomRowIndex = startingCoords.y + 1;
+            getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, bottomRowIndex);
+        }
+
+        Collections.sort(possiblePaths, new PathResultComparator());
+        if (!possiblePaths.isEmpty()) {
+            return possiblePaths.get(0);
+        }
+
+        if (pathResult.getPath().size() < map[0].length) {
+            pathResult.setPathFound(PATH_NOT_FOUND);
         }
 
         return pathResult;
+
     }
 
-    private Coord getStartingCoordinates(int[][] map) {
-        int leastResistantRowIndex = 0;
-        int leastResistance = Integer.MAX_VALUE;
-        for (int rowIndex = 0; rowIndex < map.length; rowIndex++) {
-            if (map[rowIndex][0] < leastResistance) {
-                leastResistantRowIndex = rowIndex;
-                leastResistance = map[rowIndex][0];
+    private void getPathResultByCoordinates(int[][] map, PathResult pathResult, List<PathResult> possiblePaths, int columnIndex, int rowIndex) {
+        if (rowIndex >= 0 && rowIndex < map.length) {
+            PathResult topPathResult = new PathResult(pathResult.getPathFound(), pathResult.getTotalResistance(), new ArrayList<>(pathResult.getPath()));
+            topPathResult = getPathResult(map, new Coord(columnIndex, rowIndex), topPathResult);
+            if (PATH_FOUND.equals(topPathResult.getPathFound())) {
+                possiblePaths.add(topPathResult);
             }
         }
-
-        return new Coord(0, leastResistantRowIndex);
     }
 
     private class Coord {
