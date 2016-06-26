@@ -8,6 +8,15 @@ public class PathResult {
     private int totalResistance;
     private List<Integer> path = new ArrayList<>();
 
+    public PathResult() {
+    }
+
+    public PathResult(String pathFound, int totalResistance, List<Integer> path) {
+        this.pathFound = pathFound;
+        this.totalResistance = totalResistance;
+        this.path = path;
+    }
+
     public void setPathFound(String pathFound) {
         this.pathFound = pathFound;
     }
