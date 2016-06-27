@@ -67,13 +67,23 @@ public class PathFinder {
     }
 
     private void getPathResultByCoordinates(int[][] map, PathResult pathResult, List<PathResult> possiblePaths, int columnIndex, int rowIndex) {
-        if (rowIndex >= 0 && rowIndex < map.length) {
-            PathResult topPathResult = new PathResult(pathResult.getPathFound(), pathResult.getTotalResistance(), new ArrayList<>(pathResult.getPath()));
-            topPathResult = getPathResult(map, new Coord(columnIndex, rowIndex), topPathResult);
-            if (PATH_FOUND.equals(topPathResult.getPathFound())) {
-                possiblePaths.add(topPathResult);
-            }
+        rowIndex = wrapRowsIfNecessary(map, rowIndex);
+
+        PathResult topPathResult = new PathResult(pathResult.getPathFound(), pathResult.getTotalResistance(), new ArrayList<>(pathResult.getPath()));
+        topPathResult = getPathResult(map, new Coord(columnIndex, rowIndex), topPathResult);
+        if (PATH_FOUND.equals(topPathResult.getPathFound())) {
+            possiblePaths.add(topPathResult);
         }
+    }
+
+    private int wrapRowsIfNecessary(int[][] map, int rowIndex) {
+        if (rowIndex < 0) {
+            rowIndex = map.length - 1;
+        } else if (rowIndex == map.length) {
+            rowIndex = 0;
+        }
+        
+        return rowIndex;
     }
 
     private class Coord {

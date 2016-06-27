@@ -131,4 +131,34 @@ public class LeastResistanceTest {
 
         assertEquals(expectedPath, pathFinder.findPath(map).getPath());
     }
+
+    @Test
+    public void givenAMapWithAComplexCompletePathWhichWrapsFromTheTopToTheBottomWhenThePathIsCalculatedThenItShouldReturnThePath() {
+        int[][] map = new int[][] {
+                {50, 0, 50, 50, 50},
+                {50, 50, 50, 50, 50},
+                {50, 50, 0, 0, 0}
+        };
+
+        List<Integer> expectedPath = Arrays.asList(1, 1, 3, 3, 3);
+
+        PathResult pathResult = pathFinder.findPath(map);
+        assertTrue(PATH_FOUND.equals(pathResult.getPathFound()));
+        assertEquals(expectedPath, pathResult.getPath());
+    }
+
+    @Test
+    public void givenAMapWithAComplexCompletePathWhichWrapsFromTheBottomToTheTopWhenThePathIsCalculatedThenItShouldReturnThePath() {
+        int[][] map = new int[][] {
+                {50, 50, 0, 0, 0},
+                {50, 50, 50, 50, 50},
+                {50, 0, 50, 50, 50}
+        };
+
+        List<Integer> expectedPath = Arrays.asList(1, 3, 1, 1, 1);
+
+        PathResult pathResult = pathFinder.findPath(map);
+        assertTrue(PATH_FOUND.equals(pathResult.getPathFound()));
+        assertEquals(expectedPath, pathResult.getPath());
+    }
 }
