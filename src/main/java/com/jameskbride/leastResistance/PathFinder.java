@@ -82,7 +82,7 @@ public class PathFinder {
         } else if (rowIndex == map.length) {
             rowIndex = 0;
         }
-        
+
         return rowIndex;
     }
 
