@@ -7,8 +7,8 @@ import java.util.List;
 public class PathFinder {
 
     public static final int RESISTANCE_THRESHHOLD = 50;
-    public static final String PATH_NOT_FOUND = "no";
-    public static final String PATH_FOUND = "yes";
+    public static final String PATH_NOT_FOUND = "No";
+    public static final String PATH_FOUND = "Yes";
 
     public PathResult findPath(int[][] map) {
         List<PathResult> pathResults = new ArrayList<>();

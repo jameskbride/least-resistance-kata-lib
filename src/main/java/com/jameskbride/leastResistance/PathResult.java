@@ -40,4 +40,19 @@ public class PathResult {
     public void addPathLeg(int nextLeg) {
         path.add(nextLeg);
     }
+
+    @Override
+    public String toString() {
+        return pathFound + "\n" + totalResistance + "\n" + stringifyPath();
+    }
+
+    private String stringifyPath() {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (Integer pathLeg : path) {
+            stringBuffer.append(pathLeg);
+            stringBuffer.append(" ");
+        }
+        String pathStrTemp = stringBuffer.toString();
+        return pathStrTemp.substring(0, pathStrTemp.length() - 1);
+    }
 }
