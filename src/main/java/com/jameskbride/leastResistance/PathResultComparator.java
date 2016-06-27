@@ -2,7 +2,7 @@ package com.jameskbride.leastResistance;
 
 import java.util.Comparator;
 
-import static com.jameskbride.leastResistance.PathFinder.PATH_FOUND;
+import static com.jameskbride.leastResistance.PathResult.PATH_FOUND;
 
 public class PathResultComparator implements Comparator<PathResult>{
 

@@ -6,10 +6,6 @@ import java.util.List;
 
 public class PathFinder {
 
-    public static final int RESISTANCE_THRESHHOLD = 50;
-    public static final String PATH_NOT_FOUND = "No";
-    public static final String PATH_FOUND = "Yes";
-
     public PathResult findPath(int[][] map) {
         List<PathResult> pathResults = new ArrayList<>();
         for (int rowIndex = 0; rowIndex < map.length; rowIndex++) {
@@ -30,15 +26,15 @@ public class PathFinder {
 
         int existingPathResistance = pathResult.getTotalResistance();
         int newPathResistance = existingPathResistance + map[startingCoords.y][columnIndex];
-        if (newPathResistance > RESISTANCE_THRESHHOLD) {
-            pathResult.setPathFound(PATH_NOT_FOUND);
+        if (newPathResistance > PathResult.RESISTANCE_THRESHOLD) {
+            pathResult.setPathFound(PathResult.PATH_NOT_FOUND);
 
             return pathResult;
         }
 
         List<PathResult> possiblePaths = new ArrayList<>();
         pathResult.setTotalResistance(newPathResistance);
-        pathResult.setPathFound(PATH_FOUND);
+        pathResult.setPathFound(PathResult.PATH_FOUND);
         pathResult.addPathLeg(startingCoords.y + 1);
 
         int nextColumnIndex = startingCoords.x + 1;
@@ -59,7 +55,7 @@ public class PathFinder {
         }
 
         if (pathResult.getPath().size() < map[0].length) {
-            pathResult.setPathFound(PATH_NOT_FOUND);
+            pathResult.setPathFound(PathResult.PATH_NOT_FOUND);
         }
 
         return pathResult;
@@ -71,7 +67,7 @@ public class PathFinder {
 
         PathResult topPathResult = new PathResult(pathResult.getPathFound(), pathResult.getTotalResistance(), new ArrayList<>(pathResult.getPath()));
         topPathResult = getPathResult(map, new Coord(columnIndex, rowIndex), topPathResult);
-        if (PATH_FOUND.equals(topPathResult.getPathFound())) {
+        if (PathResult.PATH_FOUND.equals(topPathResult.getPathFound())) {
             possiblePaths.add(topPathResult);
         }
     }

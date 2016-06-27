@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static com.jameskbride.leastResistance.PathFinder.PATH_FOUND;
+import static com.jameskbride.leastResistance.PathResult.PATH_FOUND;
 import static org.junit.Assert.assertEquals;
 
 public class PathResultTest {

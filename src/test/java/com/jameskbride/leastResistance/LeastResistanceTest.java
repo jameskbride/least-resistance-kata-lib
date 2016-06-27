@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.jameskbride.leastResistance.PathFinder.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -27,29 +26,29 @@ public class LeastResistanceTest {
 
         String result = pathFinder.findPath(map).getPathFound();
 
-        assertEquals(PATH_FOUND, result);
+        assertEquals(PathResult.PATH_FOUND, result);
     }
 
     @Test
     public void givenAMapWithNoInitialValidLegsWhenThePathIsCalculatedThenItShouldNotBeSuccessful() {
         int[][] map = new int[][] {
-                {RESISTANCE_THRESHHOLD + 1, 0, 0, 0, 0}
+                {PathResult.RESISTANCE_THRESHOLD + 1, 0, 0, 0, 0}
         };
 
         String result = pathFinder.findPath(map).getPathFound();
 
-        assertEquals(PATH_NOT_FOUND, result);
+        assertEquals(PathResult.PATH_NOT_FOUND, result);
     }
 
     @Test
     public void givenAMapWithWithAPartialValidPathWhenThePathIsCalculatedThenItShouldNotBeSuccessful() {
         int[][] map = new int[][] {
-                {RESISTANCE_THRESHHOLD, 1, 0, 0, 0}
+                {PathResult.RESISTANCE_THRESHOLD, 1, 0, 0, 0}
         };
 
         String result = pathFinder.findPath(map).getPathFound();
 
-        assertEquals(PATH_NOT_FOUND, result);
+        assertEquals(PathResult.PATH_NOT_FOUND, result);
     }
 
     @Test
@@ -67,18 +66,18 @@ public class LeastResistanceTest {
     @Test
     public void givenAMapWithAMinimalInvalidPathWhenThePathIsCalculatedThenItShouldReturnTheTotalResistance() {
         int[][] map = new int[][] {
-                {RESISTANCE_THRESHHOLD, 1, 0, 0, 0}
+                {PathResult.RESISTANCE_THRESHOLD, 1, 0, 0, 0}
         };
 
         int actualTotalResistance = pathFinder.findPath(map).getTotalResistance();
 
-        assertEquals(RESISTANCE_THRESHHOLD, actualTotalResistance);
+        assertEquals(PathResult.RESISTANCE_THRESHOLD, actualTotalResistance);
     }
 
     @Test
     public void givenAMapThatIsTooResistantInTheFirstStepWhenThePathIsCalculatedThenItShouldReturnZero() {
         int[][] map = new int[][] {
-                {RESISTANCE_THRESHHOLD + 1, 0, 0, 0, 0}
+                {PathResult.RESISTANCE_THRESHOLD + 1, 0, 0, 0, 0}
         };
 
         int actualTotalResistance = pathFinder.findPath(map).getTotalResistance();
@@ -100,7 +99,7 @@ public class LeastResistanceTest {
     @Test
     public void givenAMapThatIsTooResistantInTheFirstStepWhenThePathIsCalculatedThenPathContainsNoLegs() {
         int[][] map = new int[][] {
-                {RESISTANCE_THRESHHOLD + 1, 0, 0, 0, 0}
+                {PathResult.RESISTANCE_THRESHOLD + 1, 0, 0, 0, 0}
         };
 
         List<Integer> path = pathFinder.findPath(map).getPath();
@@ -111,7 +110,7 @@ public class LeastResistanceTest {
     @Test
     public void givenAMapWithAMinimalInvalidPathWhenThePathIsCalculatedThenThePathShouldContainTheValidLegs() {
         int[][] map = new int[][] {
-                {RESISTANCE_THRESHHOLD, 1, 0, 0, 0}
+                {PathResult.RESISTANCE_THRESHOLD, 1, 0, 0, 0}
         };
 
         List<Integer> path = pathFinder.findPath(map).getPath();
@@ -143,7 +142,7 @@ public class LeastResistanceTest {
         List<Integer> expectedPath = Arrays.asList(1, 1, 3, 3, 3);
 
         PathResult pathResult = pathFinder.findPath(map);
-        assertTrue(PATH_FOUND.equals(pathResult.getPathFound()));
+        assertTrue(PathResult.PATH_FOUND.equals(pathResult.getPathFound()));
         assertEquals(expectedPath, pathResult.getPath());
     }
 
@@ -158,7 +157,7 @@ public class LeastResistanceTest {
         List<Integer> expectedPath = Arrays.asList(1, 3, 1, 1, 1);
 
         PathResult pathResult = pathFinder.findPath(map);
-        assertTrue(PATH_FOUND.equals(pathResult.getPathFound()));
+        assertTrue(PathResult.PATH_FOUND.equals(pathResult.getPathFound()));
         assertEquals(expectedPath, pathResult.getPath());
     }
 }

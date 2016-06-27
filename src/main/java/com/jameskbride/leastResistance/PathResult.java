@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathResult {
+    public static final String PATH_NOT_FOUND = "No";
+    public static final String PATH_FOUND = "Yes";
+    public static final int RESISTANCE_THRESHOLD = 50;
+
     private String pathFound;
     private int totalResistance;
     private List<Integer> path = new ArrayList<>();
