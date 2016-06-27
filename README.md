@@ -21,6 +21,24 @@ different 5 x 6 grids are shown below. The grid values differ only in the bottom
 The path for the grid on the right takes advantage of the adjacency between the first
 and last rows. 
 
+<pre>
+3 4 1 2 8 6
+6 1 8 2 7 4
+5 9 3 9 9 5
+8 4 1 3 2 6
+3 7 2 8 6 4
+</pre>
+Path by row: 1 2 3 4 4 5
+
+<pre>
+3 4 1 2 8 6
+6 1 8 2 7 4
+5 9 3 9 9 5
+8 4 1 3 2 6
+3 7 2 1 2 3
+</pre>
+Path by row: 1 2 1 5 4 5
+
 ## Input ##
 ## Programming Challenge ##
 The input consists of a sequence of row specifications. Each row is represented by a
@@ -33,3 +51,47 @@ or “No” to indicate the water made it all the way through the grid. The seco
 the total resistance. The third line shows the path taken as a sequence of n delimited
 integers, each representing the rows traversed in turn. If there is more than one path
 of least resistance, only one path need be shown in the solution.
+
+## Examples ##
+<pre>
+3 4 1 2 8 6 
+6 1 8 2 7 4 
+5 9 3 9 9 5 
+8 4 1 3 2 6 
+3 7 2 8 6 4
+</pre>
+Output: 
+
+Yes
+
+16
+
+1 2 3 4 4 5
+
+<pre>
+3 4 1 2 8 6 
+6 1 8 2 7 4 
+5 9 3 9 9 5 
+8 4 1 3 2 6 
+3 7 2 12 3
+</pre>
+Output:
+
+Yes
+
+11
+
+1 2 1 5 4 5
+
+<pre>
+19 10 19 10 19 
+21 23 20 19 12 
+20 12 20 11 10
+</pre>
+Output:
+
+No
+
+48
+
+1 1 1
