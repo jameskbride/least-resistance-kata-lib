@@ -7,9 +7,14 @@ import java.util.List;
 public class PathFinder {
 
     public PathResult findPath(int[][] map) {
+        if (map.length < 1) {
+            throw new IllegalArgumentException("There must be at least one row.");
+        }
+
         if (map[0].length < 5) {
             throw new IllegalArgumentException("There must be at least 5 columns.");
         }
+
         List<PathResult> pathResults = new ArrayList<>();
         for (int rowIndex = 0; rowIndex < map.length; rowIndex++) {
             PathResult pathResult = new PathResult();

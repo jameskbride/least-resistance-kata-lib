@@ -27,6 +27,13 @@ public class LeastResistanceTest {
         pathFinder.findPath(map);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void givenAMapWithNoRowsWhenThePathIsCalculatedThenAnExceptionIsThrown() {
+        int[][] map = new int[0][5];
+
+        pathFinder.findPath(map);
+    }
+
     @Test
     public void givenAMapWithAMinimalValidPathWhenThePathIsCalculatedThenItShouldBeSuccessful() {
         int[][] map = new int[][] {
