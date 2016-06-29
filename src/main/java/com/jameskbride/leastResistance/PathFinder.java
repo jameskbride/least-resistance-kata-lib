@@ -39,6 +39,10 @@ public class PathFinder {
         if (map.length > MAXIMUM_ROW_COUNT) {
             throw new IllegalArgumentException("There can be no more than " + MAXIMUM_ROW_COUNT + " rows.");
         }
+
+        if (map[0].length > 100) {
+            throw new IllegalArgumentException("There can be no more than " + 100 + " columns.");
+        }
     }
 
     private PathResult getPathResult(int[][] map, Coord startingCoords, PathResult pathResult) {

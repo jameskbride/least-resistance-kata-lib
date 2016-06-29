@@ -41,6 +41,13 @@ public class LeastResistanceTest {
         pathFinder.findPath(map);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void givenAMapWithMoreThan100ColumnsWhenThePathIsCalculatedThenAnExceptionIsThrown() {
+        int[][] map = new int[10][101];
+
+        pathFinder.findPath(map);
+    }
+
     @Test
     public void givenAMapWithAMinimalValidPathWhenThePathIsCalculatedThenItShouldBeSuccessful() {
         int[][] map = new int[][] {
