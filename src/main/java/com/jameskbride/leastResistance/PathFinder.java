@@ -34,6 +34,10 @@ public class PathFinder {
         if (map[0].length < MINIMUM_COLUMN_COUNT) {
             throw new IllegalArgumentException("There must be at least " + MINIMUM_COLUMN_COUNT + " columns.");
         }
+
+        if (map.length > 10) {
+            throw new IllegalArgumentException("There can be no more than " + 10 + " rows.");
+        }
     }
 
     private PathResult getPathResult(int[][] map, Coord startingCoords, PathResult pathResult) {
