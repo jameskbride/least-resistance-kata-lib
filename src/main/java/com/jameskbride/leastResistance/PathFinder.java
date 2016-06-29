@@ -6,14 +6,11 @@ import java.util.List;
 
 public class PathFinder {
 
-    public PathResult findPath(int[][] map) {
-        if (map.length < 1) {
-            throw new IllegalArgumentException("There must be at least one row.");
-        }
+    public static final int MINIMUM_ROW_COUNT = 1;
+    public static final int MINIMUM_COLUMN_COUNT = 5;
 
-        if (map[0].length < 5) {
-            throw new IllegalArgumentException("There must be at least 5 columns.");
-        }
+    public PathResult findPath(int[][] map) {
+        checkForValidMapSize(map);
 
         List<PathResult> pathResults = new ArrayList<>();
         for (int rowIndex = 0; rowIndex < map.length; rowIndex++) {
@@ -27,6 +24,16 @@ public class PathFinder {
         PathResult bestPath = pathResults.get(0);
 
         return bestPath;
+    }
+
+    private void checkForValidMapSize(int[][] map) {
+        if (map.length < MINIMUM_ROW_COUNT) {
+            throw new IllegalArgumentException("There must be at least " + MINIMUM_ROW_COUNT + " rows.");
+        }
+
+        if (map[0].length < MINIMUM_COLUMN_COUNT) {
+            throw new IllegalArgumentException("There must be at least " + MINIMUM_COLUMN_COUNT + " columns.");
+        }
     }
 
     private PathResult getPathResult(int[][] map, Coord startingCoords, PathResult pathResult) {
