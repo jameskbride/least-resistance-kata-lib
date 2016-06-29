@@ -18,6 +18,15 @@ public class LeastResistanceTest {
         pathFinder = new PathFinder();
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void givenAMapWithLessThanFiveColumnsWhenThePathIsCalculatedThenAnExceptionIsThrown() {
+        int[][] map = new int [][] {
+                {0, 0, 0 ,0}
+        };
+
+        pathFinder.findPath(map);
+    }
+
     @Test
     public void givenAMapWithAMinimalValidPathWhenThePathIsCalculatedThenItShouldBeSuccessful() {
         int[][] map = new int[][] {
