@@ -9,6 +9,7 @@ public class PathFinder {
     public static final int MINIMUM_ROW_COUNT = 1;
     public static final int MINIMUM_COLUMN_COUNT = 5;
     public static final int MAXIMUM_ROW_COUNT = 10;
+    public static final int MAXIMUM_COLUMN_COUNT = 100;
 
     public PathResult findPath(int[][] map) {
         checkForValidMapSize(map);
@@ -40,8 +41,8 @@ public class PathFinder {
             throw new IllegalArgumentException("There can be no more than " + MAXIMUM_ROW_COUNT + " rows.");
         }
 
-        if (map[0].length > 100) {
-            throw new IllegalArgumentException("There can be no more than " + 100 + " columns.");
+        if (map[0].length > MAXIMUM_COLUMN_COUNT) {
+            throw new IllegalArgumentException("There can be no more than " + MAXIMUM_COLUMN_COUNT + " columns.");
         }
     }
 
