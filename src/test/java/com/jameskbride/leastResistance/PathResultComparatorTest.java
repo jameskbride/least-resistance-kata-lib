@@ -21,17 +21,17 @@ public class PathResultComparatorTest {
     }
 
     @Test
-    public void aNonNullPathResultIsLessThanANullPath() {
+    public void aNonNullPathResultIsGreaterThanANullPath() {
         PathResult pathResult = new PathResult();
 
-        assertTrue(comparator.compare(pathResult, null) < 0);
+        assertTrue(comparator.compare(pathResult, null) > 0);
     }
 
     @Test
-    public void aNullPathResultIsGreaterThanANonNullPath() {
+    public void aNullPathResultIsLessThanANonNullPath() {
         PathResult pathResult = new PathResult();
 
-        assertTrue(comparator.compare(null, pathResult) > 0);
+        assertTrue(comparator.compare(null, pathResult) < 0);
     }
 
     @Test
@@ -40,23 +40,23 @@ public class PathResultComparatorTest {
     }
 
     @Test
-    public void aCompletePathResultIsLessThanAnIncompletePath() {
+    public void aCompletePathResultIsGreaterThanAnIncompletePath() {
         PathResult pathResult = new PathResult();
         pathResult.setPathFound(PATH_FOUND);
 
         PathResult inCompletePath = new PathResult();
 
-        assertTrue(comparator.compare(pathResult, inCompletePath) < 0);
+        assertTrue(comparator.compare(pathResult, inCompletePath) > 0);
     }
 
     @Test
-    public void anIncompletePathIsGreaterThanACompleteResult() {
+    public void anIncompletePathIsLessThanACompleteResult() {
         PathResult pathResult = new PathResult();
         pathResult.setPathFound(PATH_FOUND);
 
         PathResult inCompletePath = new PathResult();
 
-        assertTrue(comparator.compare(inCompletePath, pathResult) > 0);
+        assertTrue(comparator.compare(inCompletePath, pathResult) < 0);
     }
 
     @Test
@@ -69,26 +69,26 @@ public class PathResultComparatorTest {
 
     @Test
     public void anIncompletePathWithEqualResistanceAndALongerPathIsGreaterThanAnIncompletePathWithAShorterPath() {
-        PathResult shorterPathResult = new PathResult(PATH_NOT_FOUND, 0, Arrays.asList(1, 2));
-        PathResult longerPathResult = new PathResult(PATH_NOT_FOUND, 0, Arrays.asList(1));
+        PathResult shorterPathResult = new PathResult(PATH_NOT_FOUND, 0, Arrays.asList(1));
+        PathResult longerPathResult = new PathResult(PATH_NOT_FOUND, 0, Arrays.asList(1, 2));
 
-        assertTrue(comparator.compare(shorterPathResult, longerPathResult) > 0);
+        assertTrue(comparator.compare(longerPathResult, shorterPathResult) > 0);
     }
 
     @Test
-    public void anIncompletePathWithLessResistanceAndAnEqualPathIsLessThanAnIncompletePathWithMoreResistance() {
+    public void anIncompletePathWithLessResistanceAndAnEqualPathIsGreaterThanAnIncompletePathWithMoreResistance() {
         PathResult leastResistancePath = new PathResult(PATH_NOT_FOUND, 0, Arrays.asList(1, 2));
-        PathResult moreResistancePath = new PathResult(PATH_NOT_FOUND, 1, Arrays.asList(1));
+        PathResult moreResistancePath = new PathResult(PATH_NOT_FOUND, 1, Arrays.asList(1, 2));
 
-        assertTrue(comparator.compare(leastResistancePath, moreResistancePath) < 0);
+        assertTrue(comparator.compare(leastResistancePath, moreResistancePath) > 0);
     }
 
     @Test
-    public void anIncompletePathWithMoreResistanceAndAnEqualPathIsGreaterThanAnIncompletePathWithAndAnEqualPath() {
+    public void anIncompletePathWithMoreResistanceAndAnEqualPathIsLessThanAnIncompletePathWithAndAnEqualPath() {
         PathResult moreResistancePath = new PathResult(PATH_NOT_FOUND, 1, Arrays.asList(1, 2));
         PathResult leastResistancePath = new PathResult(PATH_NOT_FOUND, 0, Arrays.asList(1, 2));
 
-        assertTrue(comparator.compare(moreResistancePath, leastResistancePath) > 0);
+        assertTrue(comparator.compare(moreResistancePath, leastResistancePath) < 0);
     }
 
     @Test
@@ -116,19 +116,19 @@ public class PathResultComparatorTest {
     }
 
     @Test
-    public void aCompletePathWithLessResistanceAndAnEqualPathLengthIsLessThanACompletePathWithAnEqualPathLength() {
-        PathResult leastResistantPath = new PathResult(PATH_FOUND, 0, Arrays.asList(1, 2));
-        PathResult moreResistantPath = new PathResult(PATH_FOUND, 1, Arrays.asList(1, 2));
+    public void aCompletePathWithLessResistanceAndAnEqualPathLengthIsGreaterThanACompletePathWithAnEqualPathLength() {
+        PathResult leastResistantPath = new PathResult(PATH_FOUND, 0, Arrays.asList(2, 1, 1, 1, 1));
+        PathResult moreResistantPath = new PathResult(PATH_FOUND, 50, Arrays.asList(2, 1, 2, 1, 2));
 
-        assertTrue(comparator.compare(leastResistantPath, moreResistantPath) < 0);
+        assertTrue(comparator.compare(leastResistantPath, moreResistantPath) > 0);
     }
 
     @Test
-    public void aCompletePathWithMoreResistanceAndAnEqualPathLengthIsGreaterThanACompletePathWithAnEqualPathLength() {
-        PathResult leastResistantPath = new PathResult(PATH_FOUND, 1, Arrays.asList(1, 2));
-        PathResult moreResistantPath = new PathResult(PATH_FOUND, 0, Arrays.asList(1, 2));
+    public void aCompletePathWithMoreResistanceAndAnEqualPathLengthIsLessThanACompletePathWithAnEqualPathLength() {
+        PathResult leastResistantPath = new PathResult(PATH_FOUND, 0, Arrays.asList(1, 2));
+        PathResult moreResistantPath = new PathResult(PATH_FOUND, 1, Arrays.asList(1, 2));
 
-        assertTrue(comparator.compare(leastResistantPath, moreResistantPath) > 0);
+        assertTrue(comparator.compare(moreResistantPath, leastResistantPath) < 0);
     }
 
     @Test

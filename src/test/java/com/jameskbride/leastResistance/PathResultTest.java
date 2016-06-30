@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static com.jameskbride.leastResistance.PathResult.PATH_FOUND;
+import static com.jameskbride.leastResistance.PathResult.PATH_NOT_FOUND;
 import static org.junit.Assert.assertEquals;
 
 public class PathResultTest {
@@ -15,6 +16,11 @@ public class PathResultTest {
     @Before
     public void setUp() {
         pathResult = new PathResult();
+    }
+
+    @Test
+    public void whenAPathResultIsCreatedThePathIsNotFoundByDefault() {
+        assertEquals(PATH_NOT_FOUND, pathResult.getPathFound());
     }
 
     @Test

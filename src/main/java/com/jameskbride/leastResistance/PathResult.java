@@ -8,7 +8,7 @@ public class PathResult {
     public static final String PATH_FOUND = "Yes";
     public static final int RESISTANCE_THRESHOLD = 50;
 
-    private String pathFound;
+    private String pathFound = PATH_NOT_FOUND;
     private int totalResistance;
     private List<Integer> path = new ArrayList<>();
 
@@ -57,6 +57,7 @@ public class PathResult {
             stringBuffer.append(" ");
         }
         String pathStrTemp = stringBuffer.toString();
-        return pathStrTemp.substring(0, pathStrTemp.length() - 1);
+
+        return pathStrTemp.length() > 0 ? pathStrTemp.substring(0, pathStrTemp.length() - 1) : "";
     }
 }
