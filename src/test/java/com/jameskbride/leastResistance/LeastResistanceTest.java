@@ -54,7 +54,9 @@ public class LeastResistanceTest {
             {0, 0, 0, 0, 0}
         };
 
-        String result = pathFinder.findPath(map).getPathFound();
+        PathResult pathResult = pathFinder.findPath(map);
+        String result = pathResult.getPathFound();
+        System.out.println(pathResult.toString());
 
         assertEquals(PathResult.PATH_FOUND, result);
     }
@@ -76,8 +78,10 @@ public class LeastResistanceTest {
                 {PathResult.RESISTANCE_THRESHOLD, 1, 0, 0, 0}
         };
 
-        String result = pathFinder.findPath(map).getPathFound();
+        PathResult pathResult = pathFinder.findPath(map);
+        String result = pathResult.getPathFound();
 
+        assertEquals(Arrays.asList(1), pathResult.getPath());
         assertEquals(PathResult.PATH_NOT_FOUND, result);
     }
 
@@ -164,7 +168,7 @@ public class LeastResistanceTest {
     @Test
     public void givenAMapWithAComplexCompletePathWhichWrapsFromTheTopToTheBottomWhenThePathIsCalculatedThenItShouldReturnThePath() {
         int[][] map = new int[][] {
-                {50, 0, 50, 50, 50},
+                {25, 25, 50, 50, 50},
                 {50, 50, 50, 50, 50},
                 {50, 50, 0, 0, 0}
         };
@@ -179,15 +183,31 @@ public class LeastResistanceTest {
     @Test
     public void givenAMapWithAComplexCompletePathWhichWrapsFromTheBottomToTheTopWhenThePathIsCalculatedThenItShouldReturnThePath() {
         int[][] map = new int[][] {
-                {50, 50, 0, 0, 0},
-                {50, 50, 50, 50, 50},
+                {100, 50, 0, 0, 0},
+                {100, 50, 50, 50, 50},
                 {50, 0, 50, 50, 50}
         };
 
-        List<Integer> expectedPath = Arrays.asList(1, 3, 1, 1, 1);
+        List<Integer> expectedPath = Arrays.asList(3, 3, 1, 1, 1);
 
         PathResult pathResult = pathFinder.findPath(map);
         assertTrue(PathResult.PATH_FOUND.equals(pathResult.getPathFound()));
+        assertEquals(expectedPath, pathResult.getPath());
+    }
+
+    @Test
+    public void givenAMapWithHighResistanceAndNoPathWhenThePathIsCalculatedThenItShouldReturnThePath() {
+        int[][] map = new int[][] {
+                {19, 10, 19, 10, 19},
+                {21, 23, 20, 19, 12},
+                {20, 12, 20, 11, 10}
+        };
+
+        List<Integer> expectedPath = Arrays.asList(1, 1, 1);
+
+        PathResult pathResult = pathFinder.findPath(map);
+        assertEquals(48, pathResult.getTotalResistance());
+        assertTrue(PathResult.PATH_NOT_FOUND.equals(pathResult.getPathFound()));
         assertEquals(expectedPath, pathResult.getPath());
     }
 }

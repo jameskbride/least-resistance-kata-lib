@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.jameskbride.leastResistance.PathResult.PATH_NOT_FOUND;
+
 public class PathFinder {
 
     public static final int MINIMUM_ROW_COUNT = 1;
@@ -17,15 +19,12 @@ public class PathFinder {
         List<PathResult> pathResults = new ArrayList<>();
         for (int rowIndex = 0; rowIndex < map.length; rowIndex++) {
             PathResult pathResult = new PathResult();
-            pathResult = getPathResult(map, new Coord(0, rowIndex), pathResult);
-            pathResults.add(pathResult);
+            getPathResult(map, new Coord(0, rowIndex), pathResult, pathResults);
         }
 
         Collections.sort(pathResults, new PathResultComparator());
 
-        PathResult bestPath = pathResults.get(0);
-
-        return bestPath;
+        return pathResults.isEmpty() ? new PathResult(PATH_NOT_FOUND, 0, new ArrayList<Integer>()) : pathResults.get(0);
     }
 
     private void checkForValidMapSize(int[][] map) {
@@ -46,44 +45,34 @@ public class PathFinder {
         }
     }
 
-    private PathResult getPathResult(int[][] map, Coord startingCoords, PathResult pathResult) {
+    private void getPathResult(int[][] map, Coord startingCoords, PathResult pathResult, List<PathResult> possiblePaths) {
         int columnIndex = startingCoords.x;
 
         int existingPathResistance = pathResult.getTotalResistance();
         int newPathResistance = existingPathResistance + map[startingCoords.y][columnIndex];
         if (newPathResistance > PathResult.RESISTANCE_THRESHOLD) {
-            pathResult.setPathFound(PathResult.PATH_NOT_FOUND);
+            return;
+        } else {
+            pathResult.addPathLeg(startingCoords.y + 1);
+            pathResult.setTotalResistance(newPathResistance);
+            possiblePaths.add(pathResult);
 
-            return pathResult;
+            int nextColumnIndex = startingCoords.x + 1;
+            if (nextColumnIndex < map[0].length) {
+                int centerRowIndex = startingCoords.y;
+                getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, centerRowIndex);
+
+                int topRowIndex = startingCoords.y - 1;
+                getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, topRowIndex);
+
+                int bottomRowIndex = startingCoords.y + 1;
+                getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, bottomRowIndex);
+            }
+
+            if (pathResult.getPath().size() == map[0].length) {
+                pathResult.setPathFound(PathResult.PATH_FOUND);
+            }
         }
-
-        List<PathResult> possiblePaths = new ArrayList<>();
-        pathResult.setTotalResistance(newPathResistance);
-        pathResult.setPathFound(PathResult.PATH_FOUND);
-        pathResult.addPathLeg(startingCoords.y + 1);
-
-        int nextColumnIndex = startingCoords.x + 1;
-        if (nextColumnIndex < map[0].length) {
-            int centerRowIndex = startingCoords.y;
-            getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, centerRowIndex);
-
-            int topRowIndex = startingCoords.y - 1;
-            getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, topRowIndex);
-
-            int bottomRowIndex = startingCoords.y + 1;
-            getPathResultByCoordinates(map, pathResult, possiblePaths, nextColumnIndex, bottomRowIndex);
-        }
-
-        Collections.sort(possiblePaths, new PathResultComparator());
-        if (!possiblePaths.isEmpty()) {
-            return possiblePaths.get(0);
-        }
-
-        if (pathResult.getPath().size() < map[0].length) {
-            pathResult.setPathFound(PathResult.PATH_NOT_FOUND);
-        }
-
-        return pathResult;
 
     }
 
@@ -91,10 +80,7 @@ public class PathFinder {
         rowIndex = wrapRowsIfNecessary(map, rowIndex);
 
         PathResult topPathResult = new PathResult(pathResult.getPathFound(), pathResult.getTotalResistance(), new ArrayList<>(pathResult.getPath()));
-        topPathResult = getPathResult(map, new Coord(columnIndex, rowIndex), topPathResult);
-        if (PathResult.PATH_FOUND.equals(topPathResult.getPathFound())) {
-            possiblePaths.add(topPathResult);
-        }
+        getPathResult(map, new Coord(columnIndex, rowIndex), topPathResult, possiblePaths);
     }
 
     private int wrapRowsIfNecessary(int[][] map, int rowIndex) {

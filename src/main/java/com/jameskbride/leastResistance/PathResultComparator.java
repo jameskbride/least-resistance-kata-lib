@@ -3,6 +3,7 @@ package com.jameskbride.leastResistance;
 import java.util.Comparator;
 
 import static com.jameskbride.leastResistance.PathResult.PATH_FOUND;
+import static com.jameskbride.leastResistance.PathResult.PATH_NOT_FOUND;
 
 public class PathResultComparator implements Comparator<PathResult>{
 
@@ -18,22 +19,22 @@ public class PathResultComparator implements Comparator<PathResult>{
             return -1;
         }
 
-        if (PATH_FOUND.equals(path1.getPathFound()) && !PATH_FOUND.equals(path2.getPathFound())) {
-            return 1;
-        } else if (!PATH_FOUND.equals(path1.getPathFound()) && PATH_FOUND.equals(path2.getPathFound())) {
+        if (PATH_FOUND.equals(path1.getPathFound()) && PATH_NOT_FOUND.equals(path2.getPathFound())) {
             return -1;
+        } else if (PATH_NOT_FOUND.equals(path1.getPathFound()) && PATH_FOUND.equals(path2.getPathFound())) {
+            return 1;
         }
 
         if (path1.getPath().size() > path2.getPath().size()) {
-            return 1;
-        } else if (path1.getPath().size() < path2.getPath().size()) {
             return -1;
+        } else if (path1.getPath().size() < path2.getPath().size()) {
+            return 1;
         }
 
         if (path1.getTotalResistance() < path2.getTotalResistance()) {
-            return 1;
-        } else if (path1.getTotalResistance() > path2.getTotalResistance()) {
             return -1;
+        } else if (path1.getTotalResistance() > path2.getTotalResistance()) {
+            return 1;
         }
 
         return 0;
